@@ -55,3 +55,19 @@ def MMD(G1,G2,Kernel_class):
         1.0 / (len(G2) * (len(G2) - 1.0)) * (Ky.sum() - Ky.diagonal().sum()) - \
         2.0 / (len(G1) * len(G2)) * Kxy.sum()
 
+
+
+
+from grakel.kernels import EdgeHistogram
+
+real = pd.read_csv("Real-Sequence-Data.csv")
+syn = pd.read_csv("Syn-Sequence-Data.csv") 
+G1 = Build_graph(syn)
+G2 = Build_graph(real)
+
+
+import time
+start = time.perf_counter()
+print(MMD(G1,G2,EdgeHistogram))
+finish = time.perf_counter()
+print(f'Finished in {round(finish-start, 2)} second(s)')
